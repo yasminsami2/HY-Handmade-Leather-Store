@@ -8,6 +8,7 @@ import { newsletterService } from "@/services/newsletterService";
 
 export function NewsletterForm() {
   const [done, setDone] = useState(false);
+  const [submitError, setSubmitError] = useState("");
   const {
     register,
     handleSubmit,
@@ -16,16 +17,21 @@ export function NewsletterForm() {
   } = useForm<NewsletterValues>({ resolver: zodResolver(newsletterSchema) });
 
   async function onSubmit(values: NewsletterValues) {
-    await newsletterService.subscribe(values.email);
-    setDone(true);
-    reset();
+    setSubmitError("");
+    try {
+      await newsletterService.subscribe(values.email);
+      setDone(true);
+      reset();
+    } catch {
+      setSubmitError("We could not save your signup in this browser. Please try again.");
+    }
   }
 
   if (done) {
     return (
       <div role="status" className="max-w-md">
         <p className="font-display text-2xl text-cream">Thank you.</p>
-        <p className="mt-2 text-sand/85">We will write to you when new pieces are ready.</p>
+        <p className="mt-2 text-sand/85">Your email is saved in this browser. Newsletter delivery is not connected yet.</p>
         <button type="button" onClick={() => setDone(false)} className="mt-4 text-sm text-sand underline underline-offset-4 hover:text-cream">
           Use a different email
         </button>
@@ -54,6 +60,7 @@ export function NewsletterForm() {
       {errors.email ? (
         <p id="newsletter-error" className="mt-2 text-sm text-red-300">{errors.email.message}</p>
       ) : null}
+      {submitError ? <p role="alert" className="mt-2 text-sm text-red-300">{submitError}</p> : null}
     </form>
   );
 }

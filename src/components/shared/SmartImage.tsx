@@ -1,8 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import { cn } from "@/lib/utils";
+import { getImageManifest } from "@/lib/imageManifest";
 
 interface SmartImageProps {
   src: string;
@@ -19,15 +20,23 @@ interface SmartImageProps {
  * If the photo file is missing, it shows a leather-textured placeholder instead of a broken image.
  */
 export function SmartImage({ src, alt, sizes, priority, className, label }: SmartImageProps) {
-  const [failed, setFailed] = useState(false);
-  const ref = useRef<HTMLImageElement>(null);
+  const [status, setStatus] = useState<"checking" | "available" | "missing">("checking");
 
   useEffect(() => {
-    const el = ref.current;
-    if (el && el.complete && el.naturalWidth === 0) setFailed(true);
-  }, []);
+    let active = true;
+    getImageManifest()
+      .then((images) => {
+        if (active) setStatus(images.has(src) ? "available" : "missing");
+      })
+      .catch(() => {
+        if (active) setStatus("missing");
+      });
+    return () => {
+      active = false;
+    };
+  }, [src]);
 
-  if (failed) {
+  if (status !== "available") {
     return (
       <div
         role="img"
@@ -42,13 +51,12 @@ export function SmartImage({ src, alt, sizes, priority, className, label }: Smar
 
   return (
     <Image
-      ref={ref}
       src={src}
       alt={alt}
       fill
       sizes={sizes}
       priority={priority}
-      onError={() => setFailed(true)}
+      onError={() => setStatus("missing")}
       className={cn("object-cover", className)}
     />
   );

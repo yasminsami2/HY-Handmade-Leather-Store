@@ -8,7 +8,9 @@ export const siteConfig = {
   tagline: "Crafted by Hand. Made to Last.",
   description:
     "Handmade genuine leather bags, wallets, belts and accessories, crafted in Egypt with attention to every detail.",
-  url: process.env.NEXT_PUBLIC_SITE_URL ?? "http://localhost:3000",
+  url:
+    process.env.NEXT_PUBLIC_SITE_URL ??
+    "https://hy-handmade-leather-store-5zh0k06bs-yasminsami2.vercel.app",
   currency: "EGP",
   locale: "en-EG",
   contact: {

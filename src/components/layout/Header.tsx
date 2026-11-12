@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Heart, Menu, Search, ShoppingBag } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
 import { useCart } from "@/context/CartContext";
@@ -17,6 +17,8 @@ export function Header() {
   const pathname = usePathname();
   const { count: cartCount, hydrated: cartReady } = useCart();
   const { count: wishCount, hydrated: wishReady } = useWishlist();
+  const menuTriggerRef = useRef<HTMLButtonElement>(null);
+  const menuCloseRef = useRef<HTMLButtonElement>(null);
   const [menuOpen, setMenuOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
 
@@ -49,6 +51,7 @@ export function Header() {
       <div className="container-page grid h-[68px] grid-cols-[1fr_auto_1fr] items-center">
         <div className="flex items-center">
           <button
+            ref={menuTriggerRef}
             type="button"
             onClick={() => setMenuOpen(true)}
             className={cn(iconButton, "-ml-2 lg:hidden")}
@@ -84,7 +87,12 @@ export function Header() {
         </div>
       </nav>
 
-      <MobileMenu open={menuOpen} onClose={() => setMenuOpen(false)} />
+      <MobileMenu
+        open={menuOpen}
+        onClose={() => setMenuOpen(false)}
+        triggerRef={menuTriggerRef}
+        closeButtonRef={menuCloseRef}
+      />
       <SearchOverlay open={searchOpen} onClose={() => setSearchOpen(false)} />
     </header>
   );

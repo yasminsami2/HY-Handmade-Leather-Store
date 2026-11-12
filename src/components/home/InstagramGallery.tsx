@@ -18,6 +18,7 @@ export function InstagramGallery() {
           intro="Behind the bench, new pieces and how our customers carry them."
           href={siteConfig.social.instagram}
           hrefLabel="Open Instagram"
+          external
         />
         <ul className="grid grid-cols-2 gap-2 sm:grid-cols-3 sm:gap-3 lg:grid-cols-6">
           {tiles.map((t, i) => (

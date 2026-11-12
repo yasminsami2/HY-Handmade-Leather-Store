@@ -21,9 +21,9 @@ export const siteConfig = {
     hours: "Daily, 10:00 – 20:00",
   },
   social: {
-    instagram: "https://instagram.com/",
-    instagramHandle: "@hyleather",
-    facebook: "https://facebook.com/",
+    instagram: "https://www.instagram.com/hy_hand_made_products?utm_source=qr&cplk=dHI1OWI4Zmpubmd0",
+    instagramHandle: "@hy_hand_made_products",
+    facebook: "https://www.facebook.com/share/19ncDKidMe/",
   },
   shipping: {
     flatRate: 60,

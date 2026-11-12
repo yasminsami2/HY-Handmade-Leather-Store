@@ -80,6 +80,11 @@ export function MobileMenu({
         aria-modal="true"
         aria-label="Menu"
         onKeyDown={trapFocus}
+        onTransitionEnd={(event) => {
+          if (open && event.target === event.currentTarget && event.propertyName === "transform") {
+            closeButtonRef.current?.focus();
+          }
+        }}
         className={cn(
           "absolute inset-y-0 left-0 flex w-[88%] max-w-sm flex-col overflow-hidden bg-cream pt-[env(safe-area-inset-top)] pb-[env(safe-area-inset-bottom)] transition-transform duration-300 ease-leather will-change-transform",
           open ? "translate-x-0" : "-translate-x-full",
@@ -88,9 +93,7 @@ export function MobileMenu({
         <div className="flex shrink-0 items-center justify-between border-b border-sand px-5 py-4">
           <Logo />
           <button
-            key={open ? "open" : "closed"}
             ref={closeButtonRef}
-            autoFocus={open}
             type="button"
             onClick={onClose}
             className={iconButton}

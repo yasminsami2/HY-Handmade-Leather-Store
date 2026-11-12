@@ -3,6 +3,7 @@ import { Fraunces, Hanken_Grotesk } from "next/font/google";
 import { AnnouncementBar } from "@/components/layout/AnnouncementBar";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { MotionEnhancements } from "@/components/shared/MotionEnhancements";
 import { Providers } from "@/context/Providers";
 import { siteConfig } from "@/lib/site";
 import "./globals.css";
@@ -43,6 +44,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           </a>
           <AnnouncementBar />
           <Header />
+          <MotionEnhancements />
           {children}
           <Footer />
         </Providers>

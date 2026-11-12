@@ -15,11 +15,11 @@ export function WishlistButton({ productId, productName, className }: { productI
       aria-pressed={active}
       aria-label={active ? `Remove ${productName} from wishlist` : `Add ${productName} to wishlist`}
       className={cn(
-        "inline-flex h-10 w-10 items-center justify-center rounded-full bg-cream/90 text-espresso transition-colors duration-300 hover:bg-cream",
+        "wishlist-button inline-flex h-10 w-10 items-center justify-center rounded-full bg-cream/90 text-espresso transition-[color,background-color,transform] duration-300 hover:bg-cream active:scale-90",
         className,
       )}
     >
-      <Heart className={cn("h-[18px] w-[18px]", active && "fill-leather text-leather")} aria-hidden />
+      <Heart className={cn("h-[18px] w-[18px] transition-[fill,stroke] duration-300", active && "fill-leather text-leather")} aria-hidden />
     </button>
   );
 }

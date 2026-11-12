@@ -4,6 +4,7 @@ import { SmartImage } from "@/components/shared/SmartImage";
 import { formatPrice } from "@/utils/format";
 import type { Product } from "@/types";
 import { WishlistButton } from "./WishlistButton";
+import { QuickAddButton } from "./QuickAddButton";
 
 function badgeFor(product: Product): string | null {
   if (product.stock <= 0) return "Sold out";
@@ -20,29 +21,32 @@ export function ProductCard({ product, priority = false }: { product: Product; p
   const sizes = "(min-width: 1024px) 25vw, (min-width: 640px) 33vw, 50vw";
 
   return (
-    <article className="group relative">
-      <Link href={href} className="block" aria-label={product.name}>
-        <div className="relative aspect-[4/5] overflow-hidden bg-sand/50">
-          <SmartImage
-            src={product.images[0]}
-            alt={`${product.name}, ${product.leatherType} ${getCategoryName(product.category).toLowerCase()}`}
-            label={product.name}
-            sizes={sizes}
-            priority={priority}
-            className="transition-transform duration-[900ms] ease-leather group-hover:scale-[1.04]"
-          />
-          {product.images[1] ? (
-            <div className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-leather group-hover:opacity-100">
-              <SmartImage
-                src={product.images[1]}
-                alt={`${product.name}, alternate view`}
-                label={product.name}
-                sizes={sizes}
-              />
-            </div>
-          ) : null}
-        </div>
-      </Link>
+    <article className="product-card group relative">
+      <div className="relative">
+        <Link href={href} className="block" aria-label={product.name}>
+          <div className="relative aspect-[4/5] overflow-hidden bg-sand/50">
+            <SmartImage
+              src={product.images[0]}
+              alt={`${product.name}, ${product.leatherType} ${getCategoryName(product.category).toLowerCase()}`}
+              label={product.name}
+              sizes={sizes}
+              priority={priority}
+              className="transition-transform duration-[900ms] ease-leather group-hover:scale-[1.04]"
+            />
+            {product.images[1] ? (
+              <div className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-leather group-hover:opacity-100">
+                <SmartImage
+                  src={product.images[1]}
+                  alt={`${product.name}, alternate view`}
+                  label={product.name}
+                  sizes={sizes}
+                />
+              </div>
+            ) : null}
+          </div>
+        </Link>
+        <QuickAddButton product={product} />
+      </div>
 
       {badge ? (
         <span className="pointer-events-none absolute left-3 top-3 bg-cream px-2.5 py-1 text-xs font-medium text-espresso">

@@ -34,7 +34,7 @@ export function InstagramGallery() {
                   alt={t.alt}
                   label="HY"
                   sizes="(min-width: 1024px) 16vw, (min-width: 640px) 33vw, 50vw"
-                  className="transition-transform duration-[900ms] ease-leather group-hover:scale-[1.06]"
+                  className="transition-transform duration-[600ms] ease-leather group-hover:scale-[1.06]"
                 />
                 <span className="absolute inset-0 flex items-center justify-center bg-espresso/45 opacity-0 transition-opacity duration-300 group-hover:opacity-100 group-focus-visible:opacity-100">
                   <Instagram className="h-7 w-7 text-cream" aria-hidden />

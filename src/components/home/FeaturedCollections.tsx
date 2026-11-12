@@ -19,7 +19,7 @@ export function FeaturedCollections({ collections }: { collections: Collection[]
                     alt={c.name}
                     label={c.name}
                     sizes="(min-width: 768px) 33vw, 100vw"
-                    className="transition-transform duration-[1200ms] ease-leather group-hover:scale-[1.04]"
+                    className="transition-transform duration-[700ms] ease-leather group-hover:scale-[1.04]"
                   />
                 </div>
                 <h3 className="mt-5 text-2xl group-hover:text-leather">{c.name}</h3>

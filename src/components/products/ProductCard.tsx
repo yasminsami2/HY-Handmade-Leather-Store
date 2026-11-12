@@ -31,7 +31,7 @@ export function ProductCard({ product, priority = false }: { product: Product; p
               label={product.name}
               sizes={sizes}
               priority={priority}
-              className="transition-transform duration-[900ms] ease-leather group-hover:scale-[1.04]"
+              className="transition-transform duration-[600ms] ease-leather group-hover:scale-[1.04]"
             />
             {product.images[1] ? (
               <div className="absolute inset-0 opacity-0 transition-opacity duration-500 ease-leather group-hover:opacity-100">

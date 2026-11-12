@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 
-const revealSelector = "main > section, main > article, main [data-scroll-reveal], main .product-card";
+const revealSelector = "main section, main article, main [data-scroll-reveal], main .product-card";
 
 export function MotionEnhancements() {
   useEffect(() => {

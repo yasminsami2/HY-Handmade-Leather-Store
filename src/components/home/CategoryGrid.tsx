@@ -21,7 +21,7 @@ export function CategoryGrid({ primary, more }: { primary: Category[]; more: Cat
                     alt={c.name}
                     label={c.name}
                     sizes="(min-width: 1024px) 25vw, 50vw"
-                    className="transition-transform duration-[900ms] ease-leather group-hover:scale-[1.04]"
+                    className="transition-transform duration-[650ms] ease-leather group-hover:scale-[1.04]"
                   />
                 </div>
                 <h3 className="mt-4 text-xl group-hover:text-leather">{c.name}</h3>

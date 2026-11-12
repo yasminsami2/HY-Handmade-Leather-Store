@@ -1,14 +1,13 @@
 "use client";
 
-import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Facebook, Instagram, MessageCircle, X } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
-import { mainNav } from "@/data/navigation";
 import { siteConfig } from "@/lib/site";
 import { cn } from "@/lib/utils";
 import { buildWhatsAppLink } from "@/utils/whatsapp";
 import { iconButton } from "./styles";
+import { NavigationLinks } from "./NavigationLinks";
 
 export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => void }) {
   const pathname = usePathname();
@@ -40,24 +39,7 @@ export function MobileMenu({ open, onClose }: { open: boolean; onClose: () => vo
 
         <nav aria-label="Mobile" className="flex-1 px-5 py-6">
           <ul className="space-y-1">
-            {mainNav.map((link) => {
-              const active = !link.href.includes("?") && pathname === link.href;
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    onClick={onClose}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "block border-b border-sand/70 py-3.5 font-display text-xl text-espresso transition-colors hover:text-leather",
-                      active && "text-leather",
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
+            <NavigationLinks pathname={pathname} mobile onNavigate={onClose} />
           </ul>
         </nav>
 

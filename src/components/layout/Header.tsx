@@ -7,9 +7,9 @@ import { Heart, Menu, Search, ShoppingBag } from "lucide-react";
 import { Logo } from "@/components/shared/Logo";
 import { useCart } from "@/context/CartContext";
 import { useWishlist } from "@/context/WishlistContext";
-import { mainNav } from "@/data/navigation";
 import { cn } from "@/lib/utils";
 import { MobileMenu } from "./MobileMenu";
+import { NavigationLinks } from "./NavigationLinks";
 import { SearchOverlay } from "./SearchOverlay";
 import { countBadge, iconButton } from "./styles";
 
@@ -79,23 +79,7 @@ export function Header() {
       <nav aria-label="Main" className="hidden border-t border-sand/70 lg:block">
         <div className="container-page">
           <ul className="flex items-center justify-center gap-x-8 xl:gap-x-10">
-            {mainNav.map((link) => {
-              const active = !link.href.includes("?") && pathname === link.href;
-              return (
-                <li key={link.href}>
-                  <Link
-                    href={link.href}
-                    aria-current={active ? "page" : undefined}
-                    className={cn(
-                      "block border-b border-transparent py-3 text-sm text-espresso transition-colors hover:border-leather hover:text-leather",
-                      active && "border-leather text-leather",
-                    )}
-                  >
-                    {link.label}
-                  </Link>
-                </li>
-              );
-            })}
+            <NavigationLinks pathname={pathname} />
           </ul>
         </div>
       </nav>

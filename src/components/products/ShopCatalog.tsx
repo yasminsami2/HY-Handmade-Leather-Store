@@ -1,6 +1,7 @@
 "use client";
 
 import { useMemo, useState } from "react";
+import { useRouter } from "next/navigation";
 import { Container } from "@/components/shared/Container";
 import { ProductGrid } from "@/components/products/ProductGrid";
 import type { Category, Collection, Product } from "@/types";
@@ -24,17 +25,20 @@ export function ShopCatalog({
   initialCollection,
   initialSort,
 }: ShopCatalogProps) {
+  const router = useRouter();
   const [query, setQuery] = useState(initialQuery);
   const [category, setCategory] = useState(initialCategory);
   const [collection, setCollection] = useState(initialCollection);
   const [sort, setSort] = useState(initialSort);
+  const activeCollection = collections.find((item) => item.slug === collection);
 
   const visibleProducts = useMemo(() => {
-    const collectionCategories = collections.find((item) => item.slug === collection)?.categories;
+    const collectionCategories = activeCollection?.categories;
     const normalizedQuery = query.trim().toLocaleLowerCase();
     const result = products.filter((product) => {
       const matchesCategory = !category || product.category === category;
-      const matchesCollection = !collectionCategories || collectionCategories.includes(product.category);
+      const matchesCollection =
+        !collection || Boolean(collectionCategories?.includes(product.category));
       const matchesQuery =
         !normalizedQuery ||
         `${product.name} ${product.description} ${product.leatherType} ${product.category}`
@@ -50,15 +54,33 @@ export function ShopCatalog({
       if (sort === "best-selling") return Number(b.bestSeller) - Number(a.bestSeller);
       return Number(b.featured) - Number(a.featured);
     });
-  }, [products, categories, collections, query, category, collection, sort]);
+  }, [products, activeCollection, query, category, collection, sort]);
+
+  function changeCollection(nextCollection: string) {
+    setCollection(nextCollection);
+    setCategory("");
+
+    const params = new URLSearchParams();
+    if (query.trim()) params.set("q", query.trim());
+    if (nextCollection) params.set("collection", nextCollection);
+    if (sort !== "featured") params.set("sort", sort);
+
+    const search = params.toString();
+    router.push(search ? `/shop?${search}` : "/shop");
+  }
 
   return (
     <main id="main">
       <Container className="py-12 sm:py-16">
         <p className="text-sm text-leather">The HY collection</p>
-        <h1 className="mt-2 text-display-lg">Shop all</h1>
+        <h1 className="mt-2 text-display-lg">
+          {activeCollection?.name ?? (collection ? "Collection not found" : "Shop all")}
+        </h1>
         <p className="mt-4 max-w-2xl text-ink/70">
-          Handmade leather bags, wallets and everyday pieces, crafted in Egypt.
+          {activeCollection?.description ??
+            (collection
+              ? "This collection is not available."
+              : "Handmade leather bags, wallets and everyday pieces, crafted in Egypt.")}
         </p>
 
         <div className="mt-8 grid gap-4 border-y border-sand py-5 sm:grid-cols-2 lg:grid-cols-4">
@@ -83,7 +105,7 @@ export function ShopCatalog({
           </label>
           <label className="text-sm text-espresso">
             <span className="field-label">Collection</span>
-            <select value={collection} onChange={(event) => setCollection(event.target.value)} className="field">
+            <select value={collection} onChange={(event) => changeCollection(event.target.value)} className="field">
               <option value="">All collections</option>
               {collections.map((item) => (
                 <option key={item.slug} value={item.slug}>{item.name}</option>

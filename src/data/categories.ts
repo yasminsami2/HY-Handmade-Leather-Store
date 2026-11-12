@@ -40,16 +40,16 @@ export const collections: Collection[] = [
   },
   {
     slug: "wallets",
-    name: "Wallets and Cardholders",
-    description: "Small leather goods you will reach for every day.",
-    categories: ["mens-wallets", "womens-wallets", "card-holders", "passport-holders"],
+    name: "Wallets",
+    description: "Wallets and cardholders you will reach for every day.",
+    categories: ["mens-wallets", "womens-wallets", "card-holders"],
     image: "/images/collections/wallets.jpg",
   },
   {
     slug: "accessories",
     name: "Accessories",
     description: "Belts, key rings and finishing touches.",
-    categories: ["accessories", "leather-belts", "card-holders"],
+    categories: ["accessories", "leather-belts", "card-holders", "passport-holders"],
     image: "/images/collections/accessories.jpg",
   },
 ];
